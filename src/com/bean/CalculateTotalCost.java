@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exception.EmptyBasketException;
+
 /**
  * @author Dipika Deshmukh
  * 
@@ -15,16 +17,23 @@ public class CalculateTotalCost {
 	 * @param basket
 	 *            : list of fruits
 	 * @return total : total cost of basket
+	 * @throws EmptyBasketException 
 	 */
-	public static int totalCostOfFruits(List basket) {
+	public static int totalCostOfFruits(List basket) throws Exception {
 		int total = 0;
-
-		Iterator<Fruit> it = basket.iterator();
-		while (it.hasNext()) {
-			Fruit fruit = it.next();
-			total = total
-					+ fruit.getCost(fruit.getPrice(), fruit.getQuantity());
-		}
+		
+			if (basket == null) {
+				throw new EmptyBasketException();
+			} else {
+				Iterator<Fruit> it = basket.iterator();
+				while (it.hasNext()) {
+					Fruit fruit = it.next();
+					total = total
+							+ fruit.getCost(fruit.getPrice(),
+									fruit.getQuantity());
+				}
+			}
+			
 		return total;
 	}
 
